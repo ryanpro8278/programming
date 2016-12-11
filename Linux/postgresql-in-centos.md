@@ -14,7 +14,7 @@ rp·m -qa|grep postgres
 ```
 + 若已经安装，则使用rpm -e 命令卸载。
 
-2. ​解压已经下载好的Postgresql
+2. 解压已经下载好的Postgresql
 ```bash
 tar xjf postgresql-9.4.5.tar.bz2
 ```
