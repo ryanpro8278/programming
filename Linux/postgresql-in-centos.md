@@ -59,7 +59,6 @@ pgsql
 + 将`PATH=$PATH:$HOME/bin`改成`PATH=$PATH:$HOME/bin:/usr/local/postgres/pgsql/bin`
 
 8. 初始化数据库
-* 建立数据目录→更改权限→初始化
 ```bash
 [root@postgresql ~]# mkdir /usr/local/postgres/pgsql/data
 [root@postgresql ~]# chown postgres:postgres /usr/local/postgres/pgsql/data
