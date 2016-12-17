@@ -10,30 +10,26 @@ CENTOS6.5
 
 1. 检查PostgreSQL 是否已经安装
 ```bash
-rp·m -qa|grep postgres
+rpm -qa|grep postgres
 ```
 + 若已经安装，则使用rpm -e 命令卸载。
-
 2. 解压已经下载好的Postgresql
 ```bash
 tar xjf postgresql-9.4.5.tar.bz2
 ```
-
 3. 进入解压好的目录
 ```bash
 cd postgresql-9.4.5
 ```
-
 4. 安装依赖包
 ```bash
 yum -y install gcc*
-yum -y install readline-devle
+yum -y install readline-devel
 ```
-
-5. 增加用户设置密码  
+5. 增加用户设置密码(此处密码设置为 *123456* 所以会提示简单)  
 ```bash
-[root@master~]#adduser postgres
-[root@master ~]# passwd postgres
+[root@master postgresql-9.4.5]# adduser postgres
+[root@master postgresql-9.4.5]# passwd postgres
 Changing password for user postgres.
 New password: 
 BAD PASSWORD: it is too simplistic/systematic
@@ -41,31 +37,26 @@ BAD PASSWORD: is too simple
 Retype new password: 
 passwd: all authentication tokens updated successfully.
 ```
-
 6. 开始编译安装PostgreSQL数据库
 ```bash
-[root@master postgresql-9.4.5]# ./configure --prefix=/usr/local/postgres/pgsql
+[root@master postgresql-9.4.5]# ./configure
 [root@master postgresql-9.4.5]# make 
 [root@master postgresql-9.4.5]# make install
 ```
-
-7. 设置环境变量
+7. 设置环境变量(进入postgres目录修改)
+```bash
+[postgres@master ~]$ cd /home/postgres/
+[postgres@master ~]$ vim .bash_profile 
 ```
-[root@master ~]# cd /usr/local/postgres
-[root@master postgres]# ls
-pgsql
-[root@master postgres]# vi .bash_profile
-```
-+ 将`PATH=$PATH:$HOME/bin`改成`PATH=$PATH:$HOME/bin:/usr/local/postgres/pgsql/bin`
-
++ 将`PATH=$PATH:$HOME/bin`改成`PATH=$PATH:$HOME/bin:/usr/local/pgsql/bin`
 8. 初始化数据库
 ```bash
-[root@postgresql ~]# mkdir /usr/local/postgres/pgsql/data
-[root@postgresql ~]# chown postgres:postgres /usr/local/postgres/pgsql/data
+[root@master pgsql]# cd /usr/local/pgsql/
+[root@master pgsql]# mkdir data
+[root@master pgsql]# chown postgres:postgres data/
 [root@postgresql ~]# su - postgres
-[postgres@postgresql ~]$ /usr/local/postgres/pgsql/bin/initdb -D /usr/local/postgres/pgsql/data
+[postgres@master ~]$ /usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data/
 ```
-
 9. 开启postgresql数据库服务
 ```bash
 [postgres@postgresql ~]$ exit
@@ -74,27 +65,19 @@ pgsql
 ```bash
 [root@postgresql postgresql-9.4.5]# cp contrib/start-scripts/linux /etc/init.d/postgresql
 ```
-+ 修改/etc/init.d/postgresql中的部分配置码，如下所示：
-```bash
-# Installation prefix
-prefix=/usr/local/postgres/pgsql/pgsql
- 
-# Data directory
-PGDATA="/usr/local/postgres/pgsql/data"
-```
 + 启动数据库并设置开机启动
 ```bash
-[root@postgresql postgresql-9.4.5]# /etc/init.d/postgresql start
+[root@master postgresql-9.4.5]#  /etc/init.d/postgresql start
 Starting PostgreSQL: ok
 [root@postgresql postgresql-9.4.5]# chkconfig --add postgresql
 [root@postgresql postgresql-9.4.5]# chkconfig postgresql on
 ```
 + 创建数据库操作历史记录文件
 ```bash
-[root@postgresql postgresql-9.4.5]# touch /usr/local/postgres/pgsql/.pgsql_history
-[root@postgresql postgresql-9.4.5]# chown postgres:postgres /usr/local/postgres/pgsql/.pgsql_history
+[root@master postgresql-9.4.5]# touch /usr/local/pgsql/.pgsql_history
+[root@master postgresql-9.4.5]# cd /usr/local/pgsql/
+[root@master pgsql]# chown postgres:postgres .pgsql_history 
 ```
-
 10. 测试是否成功
 ```bash
 [root@postgresql postgresql-9.4.5]# su - postgres
@@ -105,6 +88,5 @@ Type "help" for help.
 test=#
 ```
 完成！
-
 
 参考：[http://blog.csdn.net/jxzhfei/article/details/47150301](http://blog.csdn.net/jxzhfei/article/details/47150301)
