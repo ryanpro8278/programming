@@ -53,5 +53,5 @@ Starting MySQL. SUCCESS!
 ```
 
 3. 测试连接
-在windows下打开Navicat新建查询并设置，成功连接：  
-![](http://ww3.sinaimg.cn/large/82c8e86egw1fb3fq7zhx5j20gh0ipmyw.jpg)
+   在windows下打开Navicat新建查询并设置，成功连接：  
+   ![](http://ww3.sinaimg.cn/large/82c8e86egw1fb3fq7zhx5j20gh0ipmyw.jpg)
