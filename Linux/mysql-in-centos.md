@@ -16,12 +16,13 @@ CentOS6.5
 ```
 + 屏幕可能显示
 ```bash
-mysql-libs-5.1.71-1.el6.i686
+mysql-libs-5.1.71-1.el6.x86_64
 ```  
 + 使用下面的代码删除该libs
 ```bash
 # yum remove mysql-libs
 ```
+
 2. 解压已经下载好的mysql的tar文件
 ```bash
 # tar xvf MySQL-5.6.34-1.linux_glibc2.5.x86_64.rpm-bundle.tar
