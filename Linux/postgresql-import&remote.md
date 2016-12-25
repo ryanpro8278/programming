@@ -70,10 +70,8 @@ Restarting PostgreSQL: ok
 ```
 
 4. 测试连接  
-在windows下打开Navicat新建查询并设置：  
-![](http://ww1.sinaimg.cn/large/82c8e86egw1fav3jxb6m3j20gh0ip0ug.jpg)
-+ 开启连接，成功连接到Linux下的数据库：  
-![](http://ww3.sinaimg.cn/large/82c8e86egw1fav3kn6mlhj207007iaah.jpg)
+在windows下打开Navicat新建查询并设置，成功连接：  
+![](http://ww3.sinaimg.cn/large/82c8e86egw1fb3ftokrahj20gh0ip40f.jpg)
 
 ## Postgresql的常用命令
 1. linux下postgresql命令
