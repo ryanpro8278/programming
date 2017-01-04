@@ -6,7 +6,8 @@ CentOS6.5
 Mysql 5.6.34  
 Navicat(可视化工具)  
 ## 步骤
-1. 开放Linux3306端口的远程连接权限  
+a. 开放Linux3306端口的远程连接权限  
+
 ```Bash
 [root@master data]# vim /etc/sysconfig/iptables
 ```
@@ -22,7 +23,8 @@ iptables: Applying firewall rules:                         [  OK  ]
 Restarting PostgreSQL: ok
 ```
 
-2. 为Mysql的root用户添加远程访问权限
+b. 为Mysql的root用户添加远程访问权限
+
 ```Bash
 [root@master bbb]# mysql -uroot -p
 Enter password: （此处输入密码登录）
@@ -52,6 +54,6 @@ Shutting down MySQL.. SUCCESS!
 Starting MySQL. SUCCESS! 
 ```
 
-3. 测试连接
-   在windows下打开Navicat新建查询并设置，成功连接：  
-   ![](http://ww3.sinaimg.cn/large/82c8e86egw1fb3fq7zhx5j20gh0ipmyw.jpg)
+c. 测试连接  
+在windows下打开Navicat新建查询并设置，成功连接：  
+![](http://ww3.sinaimg.cn/large/82c8e86egw1fb3fq7zhx5j20gh0ipmyw.jpg)
