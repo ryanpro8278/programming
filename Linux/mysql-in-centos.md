@@ -1,29 +1,33 @@
 # CentOS6.5系统下安装Mysql5.6
 
-## Introduction
+## 介绍
 MySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，
 目前属于 Oracle 旗下产品。MySQL 最流行的关系型数据库管理系统，
 在 WEB 应用方面MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件之一。
 
-## Environment
+## 环境
 CentOS6.5  
 [MySQL5.6.34-1.tar](http://mirrors.sohu.com/mysql/MySQL-5.6/MySQL-5.6.34-1.linux_glibc2.5.x86_64.rpm-bundle.tar)
 
-## Processing
-1. 首先检查系统中是否已经含有关于 **mysql** 的软件
+## 步骤
+### 1 安装mysql
+
+a. 首先检查系统中是否已经含有关于 **mysql** 的软件
+
 ```bash
 #rpm -qa | grep -i mysql  //grep -i是不分大小写字符查询，只要含有mysql就显示
 ```
 + 屏幕可能显示
 ```bash
 mysql-libs-5.1.71-1.el6.x86_64
-```  
+```
 + 使用下面的代码删除该libs
 ```bash
 # yum remove mysql-libs
 ```
 
-2. 解压已经下载好的mysql的tar文件
+b. 解压已经下载好的mysql的tar文件
+
 ```bash
 # tar xvf MySQL-5.6.34-1.linux_glibc2.5.x86_64.rpm-bundle.tar
 MySQL-client-5.6.34-1.linux_glibc2.5.x86_64.rpm
@@ -34,18 +38,21 @@ MySQL-shared-5.6.34-1.linux_glibc2.5.x86_64.rpm
 MySQL-shared-compat-5.6.34-1.linux_glibc2.5.x86_64.rpm
 MySQL-test-5.6.34-1.linux_glibc2.5.x86_64.rpm
 ```
-3. 安装 **MySQL-shared-compat** 替换mysql-libs
+c. 安装 **MySQL-shared-compat** 替换mysql-libs
+
 ```bash
 # rpm -i MySQL-shared-compat-5.6.34-1.linux_glibc2.5.x86_64.rpm 
 # rpm -qa | grep -i mysql
 MySQL-shared-compat-5.6.34-1.linux_glibc2.5.x86_64
 ```
-4. 安装 **perl** (MySQL-server所必须的环境)
+d. 安装 **perl** (MySQL-server所必须的环境)
+
 ```bash
 # rpm -ivh --test MySQL-server-5.6.34-1.linux_glibc2.5.x86_64.rpm
 # yum install perl
 ```
-5. 安装 **MySQL-server** 和 **MySQL-client** ，可以看到密码被保存在 **/root/.mysql_secret**
+e. 安装 **MySQL-server** 和 **MySQL-client** ，可以看到密码被保存在 **/root/.mysql_secret**
+
 ```bash
 # rpm -ivh  MySQL-server-5.6.34-1.linux_glibc2.5.x86_64.rpm
 Preparing...                ########################################### [100%]
@@ -66,18 +73,23 @@ In addition, you can run:
 Preparing...                ########################################### [100%]
    1:MySQL-client           ########################################### [100%]
 ```
-6. 获取初始密码
+### 2 初始化mysql
+
+a. 获取初始密码
+
 ```bash
 # more /root/.mysql_secret
 # The random password set for the root user at Tue Dce 12 22:57:46 2014 (local t
 ime): Ii8Ts1lWgGlUrFx2    <– 得到root访问mysql的密码：Ii8Ts1lWgGlUrFx2
 ```
-7. 启动mysql服务
+b. 启动mysql服务
+
 ```bash
 # service mysql start
 Starting MySQL... SUCCESS! 
 ```
-8. 初始化mysql数据库
+c. 初始化mysql数据库
+
 ```bash
 # /usr/bin/mysql_secure_installation --user=mysql
 NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
@@ -147,7 +159,8 @@ Thanks for using MySQL!
 
 Cleaning up...
 ```
-9. 检测mysql服务是否成功启动
+d. 检测mysql服务是否成功启动
+
 ```bash
 #  chkconfig
 ...
