@@ -138,9 +138,43 @@ esac
 exit $RETVAL
 ```
 
-+ 注意要将 **CATALINA_HOME的路径** 设为自己的 **Tomcat路径** 
++ 注意要将 **CATALINA_HOME的路径** 设为自己的 **Tomcat路径**  
+
 b. 给 **tomcat** 文件添加权限与chkconfig
+
 ```bash
-chmod 755 tomcat
-chkconfig --add tomcat
+[root@master init.d]# chmod 755 tomcat 
+[root@master init.d]# chkconfig --add tomcat 
 ```
+c. 在 **tomcat/bin/catalina.sh** 文件中加入以下语句(路径跟随自己的实际情况更改)：
+
+```
+export JAVA_HOME=/usr/java/jdk1.8.0_111
+export CATALINA_HOME=/usr/local/tomcat
+export CATALINA_BASE=/usr/local/tomcat
+export CATALINA_TMPDIR=/usr/local/tomcat/temp
+```
+
+d. 测试 **启动** 与 **停止** tomcat的命令
+
+```bash
+[root@master bin]# service tomcat start
+Starting Tomcat
+Using CATALINA_BASE:   /usr/local/tomcat
+Using CATALINA_HOME:   /usr/local/tomcat
+Using CATALINA_TMPDIR: /usr/local/tomcat/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar
+Tomcat started.
+[root@master bin]# service tomcat stop
+Stopping Tomcat
+Using CATALINA_BASE:   /usr/local/tomcat
+Using CATALINA_HOME:   /usr/local/tomcat
+Using CATALINA_TMPDIR: /usr/local/tomcat/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar
+```
+
+完成安装！
+
+参考：[http://blog.csdn.net/liuyan4794/article/details/16328077](http://blog.csdn.net/liuyan4794/article/details/16328077)
