@@ -86,3 +86,61 @@ c. 测试是否安装成功
 访问：**http://localhost:8080** 出现如下说明已经启动
 
 ![](http://ww4.sinaimg.cn/large/82c8e86egw1fblycezhofj20q40eqtcw.jpg)
+
+### 3 设置Tomcat开机启动与chkconfig管理
+
+a. 在 **/etc/init.d/** 下新建 **tomcat** ,写入下面的代码:
+
+```bash
+#!/bin/bash
+#
+# /etc/rc.d/init.d/tomcat
+# init script for tomcat precesses
+#
+# processname: tomcat
+# description: tomcat is a j2se server
+# chkconfig: 2345 86 16
+# description: Start up the Tomcat servlet engine.
+
+if [ -f /etc/init.d/functions ]; then
+. /etc/init.d/functions
+elif [ -f /etc/rc.d/init.d/functions ]; then
+. /etc/rc.d/init.d/functions
+else
+echo -e "/atomcat: unable to locate functions lib. Cannot continue."
+exit -1
+fi
+
+RETVAL=$?
+CATALINA_HOME="/usr/local/tomcat"
+
+case "$1" in
+start)
+if [ -f $CATALINA_HOME/bin/startup.sh ];
+then
+echo $"Starting Tomcat"
+$CATALINA_HOME/bin/startup.sh
+fi
+;;
+stop)
+if [ -f $CATALINA_HOME/bin/shutdown.sh ];
+then
+echo $"Stopping Tomcat"
+$CATALINA_HOME/bin/shutdown.sh
+fi
+;;
+*)
+echo $"Usage: $0 {start|stop}"
+exit 1
+;;
+esac
+
+exit $RETVAL
+```
+
++ 注意要将 **CATALINA_HOME的路径** 设为自己的 **Tomcat路径** 
+b. 给 **tomcat** 文件添加权限与chkconfig
+```bash
+chmod 755 tomcat
+chkconfig --add tomcat
+```
