@@ -50,4 +50,4 @@ public class BasicServlet extends HttpServlet {
 }
 ```
 
-然而利用`println()`来格式化HTML不太好，且容易出错，所以就接触到了**JSP** ，
+然而利用`println()`来格式化HTML不太好，且容易出错，所以就接触到了**JSP** ，这就是刚刚入门的学习流程。
